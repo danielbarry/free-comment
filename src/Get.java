@@ -3,6 +3,7 @@ package barray.fc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -18,6 +19,14 @@ public class Get implements Request{
   private static final int DEF_MAX_SEARCH = 16;
   private static final String DEF_NEW_LINK =
     "Generated new link! It's available at: ";
+  private static final byte[] DEF_COMMENT_DATA =
+    ("<form action=\"?\" method=\"post\">" +
+      "<textarea name=\"cmnt\" style=\"width:100%;\">" +
+      "</textarea>" +
+      "<br>" +
+      "<input type=\"submit\" value=\"Submit\">" +
+      "</form>"
+    ).getBytes();
 
   private static String domain;
 
@@ -50,7 +59,7 @@ public class Get implements Request{
         );
         /* If the file doesn't exist, use it */
         if(!newCheck.exists()){
-          Post.createCommentFile(newCheck);
+          createCommentFile(newCheck);
           /* Return a link */
           return (DEF_NEW_LINK + domain + "/" + newFile).getBytes();
         }
@@ -80,6 +89,43 @@ public class Get implements Request{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
       return DEF_FAILURE;
     }
+  }
+
+  /**
+   * createCommentFile()
+   *
+   * Creates a comment file is possible, otherwise notifies the caller of the
+   * failure.
+   *
+   * @return True upon success, otherwise false.
+   **/
+  public boolean createCommentFile(File file){
+    try{
+      file.createNewFile();
+    }catch(IOException e){
+      Server.error("Post", "failed to create comments file `" + file.getPath() + "`");
+      return false;
+    }
+    FileOutputStream fos = null;
+    try{
+      fos = new FileOutputStream(file);
+    }catch(FileNotFoundException e){
+      Server.error("Post", "failed to open file `" + file.getPath() + "`");
+      return false;
+    }
+    try{
+      fos.write(DEF_COMMENT_DATA);
+    }catch(IOException e){
+      Server.error("Post", "failed to write file `" + file.getPath() + "`");
+      return false;
+    }
+    try{
+      fos.close();
+    }catch(IOException e){
+      Server.error("Post", "failed to close file `" + file.getPath() + "`");
+      return false;
+    }
+    return true;
   }
 
   /**
