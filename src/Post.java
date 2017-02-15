@@ -20,8 +20,9 @@ public class Post implements Request{
    *
    * @param path The path of the web directory.
    * @param data The data to be analysed.
+   * @param ip The IP address of the client.
    **/
-  public Post(File path, byte[] data){
+  public Post(File path, byte[] data, String ip){
     String[] cmds = new String(data, 0, DEF_CMDS_MAX_LENGTH).split(" ");
     file = new File(path.getPath() + cmds[1]);
   }

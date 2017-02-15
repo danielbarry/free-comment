@@ -71,7 +71,7 @@ public class Connection extends Thread{
             req = new Get(path, buff);
             break;
           case "POST" :
-            req = new Post(path, buff);
+            req = new Post(path, buff, sock.getInetAddress().toString());
             break;
           default :
             Server.error("Connection", "bad server mode `" + cmds[0] + "`");
