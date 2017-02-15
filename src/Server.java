@@ -35,6 +35,8 @@ public class Server{
     }catch(IOException e){
       Main.error("Server", "failed to bind to port `" + port + "`");
     }
+    /* Statically set the path */
+    Connection.setPath(this.path);
   }
 
   /**
