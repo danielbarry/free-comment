@@ -100,4 +100,16 @@ public class Server{
     }
     return true;
   }
+
+  /**
+   * error()
+   *
+   * Display error message.
+   *
+   * @param cls The identifier to be displayed.
+   * @param msg The message to be displayed.
+   **/
+  public static void error(String cls, String msg){
+    System.err.println("[ERR]::" + cls + " " + msg);
+  }
 }
