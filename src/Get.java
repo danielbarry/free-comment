@@ -15,6 +15,9 @@ public class Get implements Request{
   private static final byte[] DEF_FAILURE = "Error: 404".getBytes();
   private static final byte[] DEF_HEADER =
     "HTTP/1.1 200 OK\n\rContent-Type: text/html\n\r\n\r".getBytes();
+  private static final int DEF_MAX_SEARCH = 16;
+  private static final String DEF_NEW_LINK =
+    "Generated new link! It's available at: ";
 
   private static String domain;
 
@@ -31,10 +34,30 @@ public class Get implements Request{
    **/
   public Get(File path, byte[] data){
     String[] cmds = new String(data, 0, DEF_CMDS_MAX_LENGTH).split(" ");
-    file = new File(path.getPath() + cmds[1]);
+    cmds[1] = cmds[1].replace("/", "");
+    cmds[1] = cmds[1].split("\\?")[0];
+    file = new File(path.getPath() + "/" + cmds[1]);
   }
 
   public byte[] process(){
+    /* Check whether we have a special case */
+    if(file.getName().equals("generate")){
+      /* Keep checking until we find a unique name */
+      for(int x = 0; x < DEF_MAX_SEARCH; x++){
+        String newFile = Hash.generate();
+        File newCheck = new File(
+          file.getParentFile().getPath() + "/" + newFile
+        );
+        /* If the file doesn't exist, use it */
+        if(!newCheck.exists()){
+          Post.createCommentFile(newCheck);
+          /* Return a link */
+          return (DEF_NEW_LINK + domain + "/" + newFile).getBytes();
+        }
+      }
+      /* If we got here we failed */
+      return DEF_FAILURE;
+    }
     /* Check whether the file exists */
     if(file.exists() && file.isFile()){
       FileInputStream fis = null;
