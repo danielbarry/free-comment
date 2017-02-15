@@ -31,4 +31,41 @@ public class Post implements Request{
     /* TODO: Implement this section. */
     return "<h1>POST: I am alive!</h1>".getBytes();
   }
+
+  /**
+   * createCommentFile()
+   *
+   * Creates a comment file is possible, otherwise notifies the caller of the
+   * failure.
+   *
+   * @return True upon success, otherwise false.
+   **/
+  public static boolean createCommentFile(File file){
+    try{
+      file.createNewFile();
+    }catch(IOException e){
+      Server.error("Post", "failed to create comments file `" + file.getPath() + "`");
+      return false;
+    }
+    FileOutputStream fos = null;
+    try{
+      fos = new FileOutputStream(file);
+    }catch(FileNotFoundException e){
+      Server.error("Post", "failed to open file `" + file.getPath() + "`");
+      return false;
+    }
+    try{
+      fos.write(DEF_COMMENT_DATA);
+    }catch(IOException e){
+      Server.error("Post", "failed to write file `" + file.getPath() + "`");
+      return false;
+    }
+    try{
+      fos.close();
+    }catch(IOException e){
+      Server.error("Post", "failed to close file `" + file.getPath() + "`");
+      return false;
+    }
+    return true;
+  }
 }
