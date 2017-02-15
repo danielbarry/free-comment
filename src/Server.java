@@ -62,8 +62,7 @@ public class Server{
         }
       }catch(Exception e){
         /* Warn ourselves that somebody was able to kill the inner loop */
-        System.err.println("!! MAJOR SERVER ERROR !!");
-        e.printStackTrace();
+        error("Server", "failure in main loop");
       }
     }
   }
