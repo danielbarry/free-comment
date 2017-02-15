@@ -8,10 +8,12 @@ package barray.fc;
  **/
 public class Main{
   private static final boolean DEF_SERVER_START = true;
+  private static final String DEF_DOMN = "127.0.0.1";
   private static final String DEF_PATH = "dat/";
   private static final int DEF_PORT = 80;
 
   private boolean serverStart;
+  private String domn;
   private String path;
   private int port;
 
@@ -39,6 +41,7 @@ public class Main{
     /* Setup the arguments */
     serverStart = DEF_SERVER_START;
     path = DEF_PATH;
+    domn = DEF_DOMN;
     port = DEF_PORT;
     /* Parse the parameters */
     for(int x = 0; x < args.length; x++){
@@ -46,6 +49,10 @@ public class Main{
         case "-a" :
         case "--addr" :
           x = addr(args, x);
+          break;
+        case "-d" :
+        case "--domn" :
+          x = domn(args, x);
           break;
         case "-h" :
         case "--help" :
@@ -62,7 +69,7 @@ public class Main{
     }
     /* Start the server */
     if(serverStart){
-      (new Server(port, path)).start();
+      (new Server(port, path, domn)).start();
     }
   }
 
@@ -85,6 +92,20 @@ public class Main{
   }
 
   /**
+   * domn()
+   *
+   * Set the domain for the server.
+   *
+   * @param args The arguments to be passed by this function.
+   * @param ofst The offset in the arguments to start processing.
+   * @return The offset to jump over the processed parameters.
+   **/
+  private int domn(String[] args, int ofst){
+    domn = args[++ofst];
+    return ofst;
+  }
+
+  /**
    * help()
    *
    * Display help for this program.
@@ -102,6 +123,8 @@ public class Main{
       "\n" +
       "\n    -a  --addr  Set the server port" +
       "\n                  <INT> The server port" +
+      "\n    -d  --domn  The server domain name" +
+      "\n                  <STR> The domain name" +
       "\n    -h  --help  Display the help" +
       "\n    -p  --path  The data path" +
       "\n                  <STR> The data folder" +

@@ -21,8 +21,9 @@ public class Server{
    *
    * @param port The port to run the server on.
    * @param path The path to use to search for server data.
+   * @param domain The domain name of the server to be used.
    **/
-  public Server(int port, String path){
+  public Server(int port, String path, String domain){
     this.path = new File(path);
     if(!validPort(port)){
       Main.error("Server", "`" + port + "` invalid port");
