@@ -3,6 +3,7 @@ package barray.fc;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 /**
  * Post
@@ -49,6 +50,9 @@ public class Post implements Request{
           x + DEF_INDICATOR.length + 1,
           data.length - x - DEF_INDICATOR.length - 1
         ).trim();
+        /* Make the comment look normal */
+        cmnt = URLDecoder.decode(cmnt);
+        cmnt = sanitizeString(cmnt);
         break;
       }
     }
@@ -78,5 +82,16 @@ public class Post implements Request{
     }
     /* Return the normal result of a GET request */
     return get.process();
+  }
+
+  /**
+   * sanitizeString()
+   *
+   * Makes sure that the given String is web safe.
+   *
+   * @param str The String to be checked.
+   **/
+  private String sanitizeString(String str){
+    return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
   }
 }
