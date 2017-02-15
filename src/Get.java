@@ -16,6 +16,8 @@ public class Get implements Request{
   private static final byte[] DEF_HEADER =
     "HTTP/1.1 200 OK\n\rContent-Type: text/html\n\r\n\r".getBytes();
 
+  private static String domain;
+
   private File file;
 
   /**
@@ -55,5 +57,16 @@ public class Get implements Request{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
       return DEF_FAILURE;
     }
+  }
+
+  /**
+   * setDomain()
+   *
+   * Set the domain name of the server.
+   *
+   * @param domain The domain name of the server.
+   **/
+  public static void setDomain(String domain){
+    Get.domain = domain;
   }
 }
