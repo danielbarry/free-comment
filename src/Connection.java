@@ -1,5 +1,6 @@
 package barray.fc;
 
+import java.io.File;
 import java.net.Socket;
 
 /**
@@ -9,6 +10,8 @@ import java.net.Socket;
  * thread and figuring out what kind of request we have been given.
  **/
 public class Connection extends Thread{
+  private static File path;
+
   private Socket sock;
 
   /**
@@ -41,5 +44,16 @@ public class Connection extends Thread{
    **/
   public void run(){
     /* TODO: Write this section. */
+  }
+
+  /**
+   * setPath()
+   *
+   * Set the web directory.
+   *
+   * @param path The path of the web directory.
+   **/
+  public static void setPath(File path){
+    Connection.path = path;
   }
 }
