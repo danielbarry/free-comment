@@ -133,7 +133,7 @@ public class Main{
    * @param msg The message to be displayed.
    **/
   public static void error(String cls, String msg){
-    System.out.println("[ERR]::" + cls + " " + msg);
+    System.err.println("[ERR]::" + cls + " " + msg);
     System.exit(0);
   }
 }
