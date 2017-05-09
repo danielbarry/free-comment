@@ -21,6 +21,11 @@ following requirements of this project:
 For a full list of features, please refer to the
 [release notes](release-notes.md).
 
+## Downloads
+
+The latest downloads can be found in the
+[releases](https://github.com/danielbarry/free-comment/releases) section.
+
 ## Bugs
 
 Please refer to the
