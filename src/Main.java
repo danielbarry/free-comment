@@ -11,6 +11,7 @@ public class Main{
   private static final String DEF_DOMN = "127.0.0.1";
   private static final String DEF_PATH = "dat/";
   private static final int DEF_PORT = 80;
+  private static final String DEF_VERS = "v0.1.0";
 
   private boolean serverStart;
   private String domn;
@@ -61,6 +62,10 @@ public class Main{
         case "-p" :
         case "--path" :
           x = path(args, x);
+          break;
+        case "-v" :
+        case "--vers" :
+          x = vers(args, x);
           break;
         default :
           error("Main", "`" + args[x] + "`parameter not understood");
@@ -128,6 +133,7 @@ public class Main{
       "\n    -h  --help  Display the help" +
       "\n    -p  --path  The data path" +
       "\n                  <STR> The data folder" +
+      "\n    -v  --vers  Display the version" +
       "\n"
     );
     return ofst;
@@ -144,6 +150,21 @@ public class Main{
    **/
   private int path(String[] args, int ofst){
     path = args[++ofst];
+    return ofst;
+  }
+
+  /**
+   * vers()
+   *
+   * Display version information for this program.
+   *
+   * @param args The arguments to be passed by this function.
+   * @param ofst The offset in the arguments to start processing.
+   * @return The offset to jump over the processed parameters.
+   **/
+  private int vers(String[] args, int ofst){
+    serverStart = false;
+    System.out.println(DEF_VERS);
     return ofst;
   }
 
