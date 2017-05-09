@@ -14,8 +14,8 @@
 
 ### Features
 
-  * `[?]` Introduce release notes
-  * `[?]` Add readme file
+  * `[cdeb9f1]` Introduce release notes
+  * `[9d79aba]` Add readme file
   * `[?]` Display program version information
 
 ### Bug Fixes
