@@ -10,7 +10,7 @@
 
 ### Bug Fixes
 
-  * `[?]` Link generation doesn't include port
+  * `[fe6d323]` Link generation doesn't include port
   * `[?]` No filtering for POSTs
   * `[?]` Filter spam thread generation
   * `[?]` No defence against resource usage
