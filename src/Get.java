@@ -29,6 +29,7 @@ public class Get implements Request{
     ).getBytes();
 
   private static String domain;
+  private static int port;
 
   private File file;
 
@@ -61,7 +62,9 @@ public class Get implements Request{
         if(!newCheck.exists()){
           createCommentFile(newCheck);
           /* Return a link */
-          return (DEF_NEW_LINK + domain + "/" + newFile).getBytes();
+          return (
+            DEF_NEW_LINK + domain + ":" + port + "/" + newFile
+          ).getBytes();
         }
       }
       /* If we got here we failed */
@@ -137,5 +140,16 @@ public class Get implements Request{
    **/
   public static void setDomain(String domain){
     Get.domain = domain;
+  }
+
+  /**
+   * setPort()
+   *
+   * Set the port of the server.
+   *
+   * @param port The port of the server.
+   **/
+  public static void setPort(int port){
+    Get.port = port;
   }
 }

@@ -39,6 +39,7 @@ public class Server{
     /* Statically set values */
     Connection.setPath(this.path);
     Get.setDomain(domain);
+    Get.setPort(port);
   }
 
   /**
