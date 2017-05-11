@@ -7,6 +7,7 @@
   * `[cdeb9f1]` Introduce release notes
   * `[9d79aba]` Add readme file
   * `[5430496]` Display program version information
+  * `[?]` Readme file should be clearer
 
 ### Bug Fixes
 
@@ -14,6 +15,7 @@
   * `[?]` No filtering for POSTs
   * `[?]` Filter spam thread generation
   * `[?]` No defence against resource usage
+  * `[?]` IP addresses shouldn't be used as identifiers
 
 ## `02/2017` 0.0.0
 
