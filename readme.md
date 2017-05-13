@@ -32,6 +32,10 @@ Please refer to the
 [issues](https://github.com/danielbarry/free-comment/issues) section for a list
 of bugs.
 
+## License
+
+Please refer [here](license.md) for all licensing related issues.
+
 ## Contact
 
 Please use the [issues](https://github.com/danielbarry/free-comment/issues)
