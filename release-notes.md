@@ -8,6 +8,7 @@
   * `[9d79aba]` Add readme file
   * `[5430496]` Display program version information
   * `[?]` Readme file should be clearer
+  * `[?]` Configuration file for magic values
 
 ### Bug Fixes
 
