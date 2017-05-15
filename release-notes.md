@@ -9,6 +9,7 @@
   * `[5430496]` Display program version information
   * `[?]` Readme file should be clearer
   * `[?]` Configuration file for magic values
+  * `[?]` Licensing for companies that require it
 
 ### Bug Fixes
 
