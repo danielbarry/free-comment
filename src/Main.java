@@ -7,12 +7,10 @@ package barray.fc;
  * command line.
  **/
 public class Main{
-  private static final boolean DEF_SERVER_START = true;
-  private static final String DEF_DOMN = "127.0.0.1";
-  private static final String DEF_PATH = "dat/";
-  private static final int DEF_PORT = 80;
-  private static final String DEF_VERS = "v0.1.0";
+  private static final String DEF_INTERNAL_CONFIG = "/default.properties";
+  private static final String DEF_EXTERNAL_CONFIG = "config.properties";
 
+  private Config config;
   private boolean serverStart;
   private String domn;
   private String path;
@@ -39,11 +37,13 @@ public class Main{
    * @param args The arguments to be parsed.
    **/
   public Main(String[] args){
+    /* Load the configuration */
+    config = new Config(DEF_INTERNAL_CONFIG, DEF_EXTERNAL_CONFIG);
     /* Setup the arguments */
-    serverStart = DEF_SERVER_START;
-    path = DEF_PATH;
-    domn = DEF_DOMN;
-    port = DEF_PORT;
+    serverStart = config.getBoolean("DEF_SERVER_START");
+    path = config.getString("DEF_PATH");
+    domn = config.getString("DEF_DOMN");
+    port = config.getInt("DEF_PORT");
     /* Parse the parameters */
     for(int x = 0; x < args.length; x++){
       switch(args[x]){
@@ -164,7 +164,7 @@ public class Main{
    **/
   private int vers(String[] args, int ofst){
     serverStart = false;
-    System.out.println(DEF_VERS);
+    System.out.println(config.getString("DEF_VERS"));
     return ofst;
   }
 
