@@ -60,6 +60,10 @@ public class Post implements Request{
   }
 
   public byte[] process(){
+    /* Make sure the comment is not empty */
+    if(cmnt.length() == 0){
+      return FAILURE;
+    }
     /* Check whether the file exists */
     if(!file.exists()){
       Server.error("Post", "failed to create new file `" + file.getPath() + "`");
