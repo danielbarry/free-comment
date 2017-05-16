@@ -11,6 +11,8 @@ import java.net.ServerSocket;
  * connection loop.
  **/
 public class Server{
+  private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
+
   private File path;
   private ServerSocket ss;
 
@@ -34,6 +36,8 @@ public class Server{
     }
     try{
       ss = new ServerSocket(port);
+      ss.setReceiveBufferSize(CMDS_MAX_LENGTH);
+      ss.setReuseAddress(true);
     }catch(IOException e){
       Main.error("Server", "failed to bind to port `" + port + "`");
     }
