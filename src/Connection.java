@@ -52,6 +52,16 @@ public class Connection extends Thread{
   public void run(){
     /* Get data metrics */
     int user = sock.getInetAddress().hashCode();
+    long timestamp = System.currentTimeMillis();
+    /* Run spam detection */
+    if(Spam.isSpamConnect(user, timestamp)){
+      /* Release resources right now! */
+      try{
+        sock.close();
+      }catch(IOException e){
+        Server.error("Connection", "failed close for spam detection");
+      }
+    }
     /* Initialise variable */
     buff = new byte[DEF_BUFFER_SIZE];
     read = -1;
