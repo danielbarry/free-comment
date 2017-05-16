@@ -61,6 +61,8 @@ public class Connection extends Thread{
       }catch(IOException e){
         Server.error("Connection", "failed close for spam detection");
       }
+      /* Return early and free thread */
+      return;
     }
     /* Initialise variable */
     buff = new byte[DEF_BUFFER_SIZE];
