@@ -57,7 +57,6 @@ public class Post implements Request{
         break;
       }
     }
-    /* TODO: Apply filtering here. */
   }
 
   public byte[] process(){
