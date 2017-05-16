@@ -14,6 +14,7 @@ public class Main{
   private String domn;
   private String path;
   private int port;
+  private int salt;
 
   /**
    * main()
@@ -43,6 +44,7 @@ public class Main{
     path = Config.instance.getString("PATH");
     domn = Config.instance.getString("DOMN");
     port = Config.instance.getInt("PORT");
+    salt = Config.instance.getInt("SALT");
     /* Parse the parameters */
     for(int x = 0; x < args.length; x++){
       switch(args[x]){
@@ -61,6 +63,10 @@ public class Main{
         case "-p" :
         case "--path" :
           x = path(args, x);
+          break;
+        case "-s" :
+        case "--salt" :
+          x = salt(args, x);
           break;
         case "-v" :
         case "--vers" :
@@ -132,6 +138,8 @@ public class Main{
       "\n    -h  --help  Display the help" +
       "\n    -p  --path  The data path" +
       "\n                  <STR> The data folder" +
+      "\n    -s  --salt  Set the server salt" +
+      "\n                  <INT> The server salt" +
       "\n    -v  --vers  Display the version" +
       "\n"
     );
@@ -149,6 +157,24 @@ public class Main{
    **/
   private int path(String[] args, int ofst){
     path = args[++ofst];
+    return ofst;
+  }
+
+  /**
+   * salt()
+   *
+   * Set the salt for the server.
+   *
+   * @param args The arguments to be passed by this function.
+   * @param ofst The offset in the arguments to start processing.
+   * @return The offset to jump over the processed parameters.
+   **/
+  private int salt(String[] args, int ofst){
+    try{
+      salt = Integer.parseInt(args[++ofst]);
+    }catch(NumberFormatException e){
+      error("Main", "`" + args[ofst] + "` is not valid salt");
+    }
     return ofst;
   }
 
