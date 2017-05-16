@@ -50,6 +50,8 @@ public class Connection extends Thread{
    * Runs this method on a new thread.
    **/
   public void run(){
+    /* Get data metrics */
+    int user = sock.getInetAddress().hashCode();
     /* Initialise variable */
     buff = new byte[DEF_BUFFER_SIZE];
     read = -1;
@@ -71,7 +73,7 @@ public class Connection extends Thread{
             req = new Get(path, buff);
             break;
           case "POST" :
-            req = new Post(path, buff, sock.getInetAddress().hashCode());
+            req = new Post(path, buff, user);
             break;
           default :
             Server.error("Connection", "bad server mode `" + cmds[0] + "`");
