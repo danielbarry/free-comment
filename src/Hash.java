@@ -9,7 +9,7 @@ import java.security.SecureRandom;
  * of the comments.
  **/
 public class Hash{
-  private static final int DEF_CRYPTO_LENGTH = 32;
+  private static final int CRYPTO_LENGTH = Config.instance.getInt("CRYPTO_LENGTH");
 
   /**
    * check()
@@ -21,7 +21,7 @@ public class Hash{
    **/
   public static boolean check(String hash){
     /* Check length */
-    if(hash.length() != DEF_CRYPTO_LENGTH * 2){
+    if(hash.length() != CRYPTO_LENGTH * 2){
       return false;
     }
     /* Check used characters */
@@ -43,7 +43,7 @@ public class Hash{
    **/
   public static String generate(){
     SecureRandom random = new SecureRandom();
-    byte[] bytes = new byte[DEF_CRYPTO_LENGTH];
+    byte[] bytes = new byte[CRYPTO_LENGTH];
     random.nextBytes(bytes);
     return hashByteArrayToString(bytes);
   }
