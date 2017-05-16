@@ -12,21 +12,12 @@ import java.io.IOException;
  * Implements the get functionality for this server.
  **/
 public class Get implements Request{
-  private static final int DEF_CMDS_MAX_LENGTH = 256;
-  private static final byte[] DEF_FAILURE = "Error: 404".getBytes();
-  private static final byte[] DEF_HEADER =
-    "HTTP/1.1 200 OK\n\rContent-Type: text/html\n\r\n\r".getBytes();
-  private static final int DEF_MAX_SEARCH = 16;
-  private static final String DEF_NEW_LINK =
-    "Generated new link! It's available at: ";
-  private static final byte[] DEF_COMMENT_DATA =
-    ("<form action=\"?\" method=\"post\">" +
-      "<textarea name=\"cmnt\" style=\"width:100%;\">" +
-      "</textarea>" +
-      "<br>" +
-      "<input type=\"submit\" value=\"Submit\">" +
-      "</form>"
-    ).getBytes();
+  private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
+  private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
+  private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
+  private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
+  private static final String NEW_LINK = Config.instance.getString("NEW_LINK");
+  private static final byte[] COMMENT_DATA = Config.instance.getString("COMMENT_DATA").getBytes();
 
   private static String domain;
   private static int port;
@@ -43,7 +34,7 @@ public class Get implements Request{
    * @param data The data to be analysed.
    **/
   public Get(File path, byte[] data){
-    String[] cmds = new String(data, 0, DEF_CMDS_MAX_LENGTH).split(" ");
+    String[] cmds = new String(data, 0, CMDS_MAX_LENGTH).split(" ");
     cmds[1] = cmds[1].replace("/", "");
     cmds[1] = cmds[1].split("\\?")[0];
     file = new File(path.getPath() + "/" + cmds[1]);
@@ -53,7 +44,7 @@ public class Get implements Request{
     /* Check whether we have a special case */
     if(file.getName().equals("generate")){
       /* Keep checking until we find a unique name */
-      for(int x = 0; x < DEF_MAX_SEARCH; x++){
+      for(int x = 0; x < MAX_SEARCH; x++){
         String newFile = Hash.generate();
         File newCheck = new File(
           file.getParentFile().getPath() + "/" + newFile
@@ -63,12 +54,12 @@ public class Get implements Request{
           createCommentFile(newCheck);
           /* Return a link */
           return (
-            DEF_NEW_LINK + domain + ":" + port + "/" + newFile
+            NEW_LINK + domain + ":" + port + "/" + newFile
           ).getBytes();
         }
       }
       /* If we got here we failed */
-      return DEF_FAILURE;
+      return FAILURE;
     }
     /* Check whether the file exists */
     if(file.exists() && file.isFile()){
@@ -77,20 +68,20 @@ public class Get implements Request{
         fis = new FileInputStream(file);
       }catch(FileNotFoundException e){
         Server.error("Get", "failure to find `" + file.getPath() + "`");
-        return DEF_FAILURE;
+        return FAILURE;
       }
-      byte[] buff = new byte[(int)(DEF_HEADER.length + file.length())];
+      byte[] buff = new byte[(int)(HEADER.length + file.length())];
       try{
-        fis.read(buff, DEF_HEADER.length, (int)(file.length()));
+        fis.read(buff, HEADER.length, (int)(file.length()));
       }catch(IOException e){
         Server.error("Get", "could not read `" + file.getPath() + "`");
-        return DEF_FAILURE;
+        return FAILURE;
       }
-      System.arraycopy(DEF_HEADER, 0, buff, 0, DEF_HEADER.length);
+      System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
       return buff;
     }else{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
-      return DEF_FAILURE;
+      return FAILURE;
     }
   }
 
@@ -117,7 +108,7 @@ public class Get implements Request{
       return false;
     }
     try{
-      fos.write(DEF_COMMENT_DATA);
+      fos.write(COMMENT_DATA);
     }catch(IOException e){
       Server.error("Post", "failed to write file `" + file.getPath() + "`");
       return false;
