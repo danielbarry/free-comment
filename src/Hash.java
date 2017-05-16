@@ -10,6 +10,8 @@ import java.security.SecureRandom;
  **/
 public class Hash{
   private static final int CRYPTO_LENGTH = Config.instance.getInt("CRYPTO_LENGTH");
+  private static final char[] CONSONANT_LIST = Config.instance.getString("CONSONANT_LIST").toCharArray();
+  private static final char[] VOWEL_LIST = Config.instance.getString("VOWEL_LIST").toCharArray();
 
   /**
    * check()
@@ -66,5 +68,38 @@ public class Hash{
       }
     }
     return buff;
+  }
+
+  /**
+   * ipToWord()
+   *
+   * Converts an IP address to a word.
+   *
+   * @param ip The IP address  o be converted.
+   ONSONANT_LIST[i % CONSONANT_LIST.length];
+           i /= CONSONANT_LIST.length;
+
+   * @return The converted IP address.
+   **/
+  public static String ipToWord(String ip, int salt){
+    /* Convert IP to integer */
+    int i = ip.hashCode();
+    /* Mix IP with salt */
+    i ^= salt;
+    /* Generate the output String */
+    String r = "";
+    for(int x = 0; x < 8; x++){
+      if(x % 4 == 0 || x % 4 == 3){
+        r += CONSONANT_LIST[i % CONSONANT_LIST.length];
+        i /= CONSONANT_LIST.length;
+      }else{
+        r += VOWEL_LIST[i % VOWEL_LIST.length];
+        i /= VOWEL_LIST.length;
+      }
+      if(x == 3){
+        r += " ";
+      }
+    }
+    return r;
   }
 }
