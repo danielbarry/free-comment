@@ -10,7 +10,6 @@ public class Main{
   private static final String DEF_INTERNAL_CONFIG = "/default.properties";
   private static final String DEF_EXTERNAL_CONFIG = "config.properties";
 
-  private Config config;
   private boolean serverStart;
   private String domn;
   private String path;
@@ -38,12 +37,12 @@ public class Main{
    **/
   public Main(String[] args){
     /* Load the configuration */
-    config = new Config(DEF_INTERNAL_CONFIG, DEF_EXTERNAL_CONFIG);
+    new Config(DEF_INTERNAL_CONFIG, DEF_EXTERNAL_CONFIG);
     /* Setup the arguments */
-    serverStart = config.getBoolean("DEF_SERVER_START");
-    path = config.getString("DEF_PATH");
-    domn = config.getString("DEF_DOMN");
-    port = config.getInt("DEF_PORT");
+    serverStart = Config.instance.getBoolean("SERVER_START");
+    path = Config.instance.getString("PATH");
+    domn = Config.instance.getString("DOMN");
+    port = Config.instance.getInt("PORT");
     /* Parse the parameters */
     for(int x = 0; x < args.length; x++){
       switch(args[x]){
@@ -164,7 +163,7 @@ public class Main{
    **/
   private int vers(String[] args, int ofst){
     serverStart = false;
-    System.out.println(config.getString("DEF_VERS"));
+    System.out.println(Config.instance.getString("VERS"));
     return ofst;
   }
 
