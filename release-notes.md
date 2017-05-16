@@ -7,7 +7,7 @@
   * `[cdeb9f1]` Introduce release notes
   * `[9d79aba]` Add readme file
   * `[5430496]` Display program version information
-  * `[?]` Readme file should be clearer
+  * `[936a14c]` Readme file should be clearer
   * `[f419864]` Configuration file for magic values
   * `[510c8f5]` Licensing for companies that require it
   * `[224a956]` Remove support for index page
