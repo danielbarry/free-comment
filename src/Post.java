@@ -16,7 +16,7 @@ public class Post implements Request{
   private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
 
-  private String ip;
+  private int user;
   private Get get;
   private File file;
   private String cmnt;
@@ -29,10 +29,10 @@ public class Post implements Request{
    *
    * @param path The path of the web directory.
    * @param data The data to be analysed.
-   * @param ip The IP address of the client.
+   * @param user The IP address hash of the client.
    **/
-  public Post(File path, byte[] data, String ip){
-    this.ip = ip;
+  public Post(File path, byte[] data, int user){
+    this.user = user;
     /* Build get request to return file */
     get = new Get(path, data);
     /* Process header */
@@ -72,7 +72,8 @@ public class Post implements Request{
     /* Append comment to file */
     try{
       FileWriter fw = new FileWriter(file, true);
-      fw.write("\n<p><b>" + ip + " says: </b>" + cmnt + "</p>");
+      /* TODO: Salt the output word. */
+      fw.write("\n<p><b>" + Hash.intToWord(user, 0, 8) + " says: </b>" + cmnt + "</p>");
       fw.flush();
       fw.close();
     }catch(IOException e){

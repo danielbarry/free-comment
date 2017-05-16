@@ -71,24 +71,21 @@ public class Hash{
   }
 
   /**
-   * ipToWord()
+   * intToWord()
    *
-   * Converts an IP address to a word.
+   * Converts an integer to a series of words.
    *
-   * @param ip The IP address  o be converted.
-   ONSONANT_LIST[i % CONSONANT_LIST.length];
-           i /= CONSONANT_LIST.length;
-
-   * @return The converted IP address.
+   * @param i The integer to be converted.
+   * @param salt The salt to be XOR'd with the int.
+   * @param len The length of the String to produce, not including spacing.
+   * @return The converted integer.
    **/
-  public static String ipToWord(String ip, int salt){
-    /* Convert IP to integer */
-    int i = ip.hashCode();
+  public static String intToWord(int i, int salt, int len){
     /* Mix IP with salt */
     i ^= salt;
     /* Generate the output String */
     String r = "";
-    for(int x = 0; x < 8; x++){
+    for(int x = 0; x < len; x++){
       if(x % 4 == 0 || x % 4 == 3){
         r += CONSONANT_LIST[i % CONSONANT_LIST.length];
         i /= CONSONANT_LIST.length;
@@ -96,7 +93,7 @@ public class Hash{
         r += VOWEL_LIST[i % VOWEL_LIST.length];
         i /= VOWEL_LIST.length;
       }
-      if(x == 3){
+      if(x % 4 == 3){
         r += " ";
       }
     }
