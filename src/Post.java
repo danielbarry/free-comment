@@ -16,6 +16,8 @@ public class Post implements Request{
   private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
 
+  private static int salt;
+
   private int user;
   private Get get;
   private File file;
@@ -72,8 +74,7 @@ public class Post implements Request{
     /* Append comment to file */
     try{
       FileWriter fw = new FileWriter(file, true);
-      /* TODO: Salt the output word. */
-      fw.write("\n<p><b>" + Hash.intToWord(user, 0, 8) + " says: </b>" + cmnt + "</p>");
+      fw.write("\n<p><b>" + Hash.intToWord(user, salt, 8) + " says: </b>" + cmnt + "</p>");
       fw.flush();
       fw.close();
     }catch(IOException e){
@@ -93,5 +94,16 @@ public class Post implements Request{
    **/
   private String sanitizeString(String str){
     return str.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;");
+  }
+
+  /**
+   * setSalt()
+   *
+   * Sets the salt for the username.
+   *
+   * @param salt The salted username.
+   **/
+  public static void setSalt(int salt){
+    Post.salt = salt;
   }
 }

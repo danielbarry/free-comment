@@ -41,6 +41,7 @@ public class Server{
     Connection.setPath(this.path);
     Get.setDomain(domain);
     Get.setPort(port);
+    Post.setSalt(salt);
   }
 
   /**
