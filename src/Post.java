@@ -11,11 +11,10 @@ import java.net.URLDecoder;
  * Implements the post functionality for this server.
  **/
 public class Post implements Request{
-  private static final int DEF_CMDS_MAX_LENGTH = 256;
-  private static final byte[] DEF_INDICATOR = "cmnt=".getBytes();
-  private static final byte[] DEF_HEADER =
-    "HTTP/1.1 200 OK\n\rContent-Type: text/html\n\r\n\r".getBytes();
-  private static final byte[] DEF_FAILURE = "Error: Failed to post".getBytes();
+  private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
+  private static final byte[] INDICATOR = Config.instance.getString("INDICATOR").getBytes();
+  private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
+  private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
 
   private String ip;
   private Get get;
@@ -37,18 +36,18 @@ public class Post implements Request{
     /* Build get request to return file */
     get = new Get(path, data);
     /* Process header */
-    String[] cmds = new String(data, 0, DEF_CMDS_MAX_LENGTH).split(" ");
+    String[] cmds = new String(data, 0, CMDS_MAX_LENGTH).split(" ");
     cmds[1] = cmds[1].replace("/", "");
     cmds[1] = cmds[1].split("\\?")[0];
     file = new File(path.getPath() + "/" + cmds[1]);
     /* Get comment */
     cmnt = null;
-    for(int x = data.length - 1 - DEF_INDICATOR.length; x >= 0; x--){
+    for(int x = data.length - 1 - INDICATOR.length; x >= 0; x--){
       if(data[x] == '\n' || data[x] == '\r'){
         cmnt = new String(
           data,
-          x + DEF_INDICATOR.length + 1,
-          data.length - x - DEF_INDICATOR.length - 1
+          x + INDICATOR.length + 1,
+          data.length - x - INDICATOR.length - 1
         ).trim();
         /* Make the comment look normal */
         cmnt = URLDecoder.decode(cmnt);
@@ -63,12 +62,12 @@ public class Post implements Request{
     /* Check whether the file exists */
     if(!file.exists()){
       Server.error("Post", "failed to create new file `" + file.getPath() + "`");
-      return DEF_FAILURE;
+      return FAILURE;
     }
     /* Check that the file is a valid comment file */
     if(!Hash.check(file.getName())){
       Server.error("Post", "invalid comments files `" + file.getPath() + "`");
-      return DEF_FAILURE;
+      return FAILURE;
     }
     /* Append comment to file */
     try{
@@ -78,7 +77,7 @@ public class Post implements Request{
       fw.close();
     }catch(IOException e){
       Server.error("Post", "failed to append comment to `" + file.getPath() + "`");
-      return DEF_FAILURE;
+      return FAILURE;
     }
     /* Return the normal result of a GET request */
     return get.process();
