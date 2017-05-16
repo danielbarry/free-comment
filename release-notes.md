@@ -1,5 +1,18 @@
 # Release Notes
 
+## `08/2017` 0.2.0
+
+### Features
+
+  * `[?]` Testing for important modules
+  * `[?]` Test fuzzing against the server
+  * `[?]` Expose as an API
+  * `[?]` Move magic values into configuration file
+
+### Bug Fixes
+
+  * None
+
 ## `05/2017` 0.1.0
 
 ### Features
