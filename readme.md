@@ -21,6 +21,28 @@ following requirements of this project:
 For a full list of features, please refer to the
 [release notes](release-notes.md).
 
+## Use
+
+To start, simply start the server:
+
+    java -jar fc.jar
+
+Now navigate to `http://127.0.0.1/generate`. You should see something like:
+
+    Generated new link! It's available at:127.0.0.1/774c61acc4718cb2649c60fc89e046bd42d793559d70c30cfe85a503214f7b1d
+
+Navigate to the address... Some examples of what you can expect:
+
+![Dillio Example](wik/example-dillio.png)
+
+![Lynx Example](wik/example-lynx.png)
+
+To use in a webpage, simply embed the page in your page:
+
+    <iframe src="http://127.0.0.1/774c61acc4718cb2649c60fc89e046bd42d793559d70c30cfe85a503214f7b1d"></iframe>
+
+It's as simple as that! Comments - for everybody!
+
 ## Downloads
 
 The latest downloads can be found in the
