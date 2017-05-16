@@ -10,7 +10,7 @@
   * `[?]` Readme file should be clearer
   * `[f419864]` Configuration file for magic values
   * `[510c8f5]` Licensing for companies that require it
-  * `[?]` Remove support for index page
+  * `[224a956]` Remove support for index page
 
 ### Bug Fixes
 
