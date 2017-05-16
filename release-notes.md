@@ -17,7 +17,7 @@
   * `[fe6d323]` Link generation doesn't include port
   * `[ddde93e]` No filtering for POSTs
   * `[ddde93e]` Filter spam thread generation
-  * `[?]` No defence against resource usage
+  * `[a4bbde8]` No defence against resource usage
   * `[fef7dc4]` IP addresses shouldn't be used as identifiers
 
 ## `02/2017` 0.0.0
