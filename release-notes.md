@@ -15,10 +15,10 @@
 ### Bug Fixes
 
   * `[fe6d323]` Link generation doesn't include port
-  * `[?]` No filtering for POSTs
-  * `[?]` Filter spam thread generation
+  * `[ddde93e]` No filtering for POSTs
+  * `[ddde93e]` Filter spam thread generation
   * `[?]` No defence against resource usage
-  * `[?]` IP addresses shouldn't be used as identifiers
+  * `[fef7dc4]` IP addresses shouldn't be used as identifiers
 
 ## `02/2017` 0.0.0
 
