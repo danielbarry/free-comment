@@ -79,7 +79,7 @@ public class Main{
     }
     /* Start the server */
     if(serverStart){
-      (new Server(port, path, domn)).start();
+      (new Server(port, path, domn, salt)).start();
     }
   }
 
