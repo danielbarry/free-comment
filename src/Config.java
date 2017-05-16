@@ -98,6 +98,29 @@ public class Config{
   }
 
   /**
+   * getLong()
+   *
+   * Get a value from configuration file, otherwise return -1.
+   *
+   * @param key The key identifier for the value to be found.
+   * @return The object for a given key, otherwise -1.
+   **/
+  public long getLong(String key){
+    try{
+      /* Get the initial String */
+      String val = getString(key);
+      /* Try to cast */
+      if(val != null){
+        return Long.parseLong(val);
+      }
+    }catch(NumberFormatException e){
+      /* Do nothing */
+    }
+    /* Default return value */
+    return -1;
+  }
+
+  /**
    * getDouble()
    *
    * Get a value from configuration file, otherwise return -1.0.
