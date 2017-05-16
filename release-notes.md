@@ -8,7 +8,7 @@
   * `[9d79aba]` Add readme file
   * `[5430496]` Display program version information
   * `[?]` Readme file should be clearer
-  * `[?]` Configuration file for magic values
+  * `[f419864]` Configuration file for magic values
   * `[510c8f5]` Licensing for companies that require it
   * `[?]` Remove support for index page
 
