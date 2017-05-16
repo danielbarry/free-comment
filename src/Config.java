@@ -12,6 +12,7 @@ import java.util.Properties;
  * to be loaded.
  **/
 public class Config{
+  public static Config instance;
   private Properties iProps;
   private Properties eProps;
 
@@ -26,6 +27,9 @@ public class Config{
    * exists - otherwise default values are to be used.
    **/
   public Config(String internal, String external){
+    /* Set the current instance */
+    instance = this;
+    /* Set the streams as NULL for try-catch checks */
     InputStream is = null;
     FileInputStream fis = null;
     /* Load the internal properties */
