@@ -83,6 +83,8 @@ public class Hash{
   public static String intToWord(int i, int salt, int len){
     /* Mix IP with salt */
     i ^= salt;
+    /* Make sure the number is positive */
+    i = i < 0 ? -i : i;
     /* Generate the output String */
     String r = "";
     for(int x = 0; x < len; x++){
