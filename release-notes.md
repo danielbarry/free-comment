@@ -13,6 +13,16 @@
 
   * None
 
+## `05/2017` 0.1.1
+
+### Features
+
+  * None
+
+### Bug Fixes
+
+  * `[3ba8d84]` Negative hashes crash client thread
+
 ## `05/2017` 0.1.0
 
 ### Features
