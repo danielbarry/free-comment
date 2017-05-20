@@ -13,7 +13,7 @@
 
 ### Bug Fixes
 
-  * None
+  * `[?]` Filter chars less than 32d, greater than 127d
 
 ## `05/2017` 0.1.1
 
