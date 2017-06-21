@@ -15,6 +15,7 @@ public class Get implements Request{
   private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
   private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
+  private static final byte[] STYLE = Config.instance.getString("STYLE").getBytes();
   private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
   private static final String NEW_LINK = Config.instance.getString("NEW_LINK");
   private static final byte[] COMMENT_DATA = Config.instance.getString("COMMENT_DATA").getBytes();
@@ -70,14 +71,15 @@ public class Get implements Request{
         Server.error("Get", "failure to find `" + file.getPath() + "`");
         return FAILURE;
       }
-      byte[] buff = new byte[(int)(HEADER.length + file.length())];
+      byte[] buff = new byte[(int)(HEADER.length + STYLE.length + file.length())];
       try{
-        fis.read(buff, HEADER.length, (int)(file.length()));
+        fis.read(buff, HEADER.length + STYLE.length, (int)(file.length()));
       }catch(IOException e){
         Server.error("Get", "could not read `" + file.getPath() + "`");
         return FAILURE;
       }
       System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
+      System.arraycopy(STYLE, 0, buff, HEADER.length, STYLE.length);
       return buff;
     }else{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
