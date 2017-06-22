@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Post
@@ -15,7 +17,9 @@ public class Post implements Request{
   private static final byte[] INDICATOR = Config.instance.getString("INDICATOR").getBytes();
   private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
+  private static final String DATE_FORMAT = Config.instance.getString("DATE_FORMAT");
 
+  private static SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
   private static int salt;
 
   private int user;
@@ -77,7 +81,13 @@ public class Post implements Request{
     /* Append comment to file */
     try{
       FileWriter fw = new FileWriter(file, true);
-      fw.write("\n<p><b>" + Hash.intToWord(user, salt, 8) + " says: </b>" + cmnt + "</p>");
+      fw.write(
+        "\n<p><b><tt>" +
+          Hash.intToWord(user, salt, 8) +
+          " @ " + sdf.format(new Date()) + " says: </tt></b><br>" +
+          cmnt +
+        "</p>"
+      );
       fw.flush();
       fw.close();
     }catch(IOException e){
