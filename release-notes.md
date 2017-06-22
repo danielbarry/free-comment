@@ -1,5 +1,16 @@
 # Release Notes
 
+## `??/????` 0.3.0
+
+### Features
+
+  * `[?]` Time-stamp offset configuration
+  * `[?]` Document CSS configurability
+
+### Bug Fixes
+
+  * None
+
 ## `08/2017` 0.2.0
 
 ### Features
