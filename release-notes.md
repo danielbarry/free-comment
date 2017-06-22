@@ -8,10 +8,10 @@
   * `[?]` Test fuzzing against the server
   * `[?]` Expose as an API
   * `[?]` Move magic values into configuration file
-  * `[?]` Allow stylisation for the comments via CSS
-  * `[?]` Comments posted should include time
+  * `[d86fbfa]` Allow stylisation for the comments via CSS
+  * `[3be0f5a]` Comments posted should include time
   * `[?]` Comments should include captcha testing
-  * `[?]` Use a proper software license
+  * `[48397bc]` Use a proper software license
 
 ### Bug Fixes
 
