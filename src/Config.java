@@ -1,5 +1,6 @@
 package barray.fc;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -165,6 +166,44 @@ public class Config{
     }
     /* Default return case for failure */
     return null;
+  }
+
+  /**
+   * getFile()
+   *
+   * Get a value from configuration file, otherwise return NULL.
+   *
+   * @param key The key identifier for the value to be found.
+   * @return The object for a given key, otherwise NULL.
+   **/
+  public byte[] getFile(String key){
+    byte[] buff = new byte[]{};
+    /* Make sure that key exists */
+    if(exists(key)){
+      File file = null;
+      /* Check first whether internal properties has value */
+      if(file == null && iProps.getProperty(key) != null){
+        file = new File(iProps.getProperty(key));
+      }
+      /* Check second whether external properties has value */
+      if(file == null && eProps.getProperty(key) != null){
+        file = new File(eProps.getProperty(key));
+      }
+      /* Attempt to read the file */
+      if(file != null && file.exists() && file.isFile()){
+        FileInputStream fis = null;
+        try{
+          fis = new FileInputStream(file);
+          buff = new byte[(int)(file.length())];
+          fis.read(buff, 0, (int)(file.length()));
+          fis.close();
+        }catch(IOException e){
+          Main.error("Config", "Unable to load file " + key);
+        }
+      }
+    }
+    /* Default return case for failure */
+    return buff;
   }
 
   /**
