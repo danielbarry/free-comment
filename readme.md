@@ -18,9 +18,6 @@ following requirements of this project:
   * Fast response time
   * Safe to use
 
-For a full list of features, please refer to the
-[release notes](release-notes.md).
-
 ## Use
 
 To start, simply start the server:
