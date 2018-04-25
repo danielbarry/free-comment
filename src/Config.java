@@ -74,6 +74,7 @@ public class Config{
       /* Do nothing */
     }
     /* Default return value */
+    Main.error("Config", "Unable to load boolean " + key);
     return false;
   }
 
@@ -97,6 +98,7 @@ public class Config{
       /* Do nothing */
     }
     /* Default return value */
+    Main.error("Config", "Unable to load integer " + key);
     return -1;
   }
 
@@ -120,6 +122,7 @@ public class Config{
       /* Do nothing */
     }
     /* Default return value */
+    Main.error("Config", "Unable to load long " + key);
     return -1;
   }
 
@@ -143,6 +146,7 @@ public class Config{
       /* Do nothing */
     }
     /* Default return value */
+    Main.error("Config", "Unable to load double " + key);
     return -1.0;
   }
 
@@ -167,6 +171,7 @@ public class Config{
       }
     }
     /* Default return case for failure */
+    Main.error("Config", "Unable to load string " + key);
     return null;
   }
 
