@@ -18,7 +18,7 @@ public class Get implements Request{
   private static final byte[] STYLE = Config.instance.getString("STYLE").getBytes();
   private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
   private static final String NEW_LINK = Config.instance.getString("NEW_LINK");
-  private static final byte[] COMMENT_DATA = Config.instance.getString("COMMENT_DATA").getBytes();
+  private static final byte[] THREAD = Config.instance.getFile("THREAD");
 
   private static String domain;
   private static int port;
@@ -71,15 +71,15 @@ public class Get implements Request{
         Server.error("Get", "failure to find `" + file.getPath() + "`");
         return FAILURE;
       }
-      byte[] buff = new byte[(int)(HEADER.length + STYLE.length + file.length())];
+      byte[] buff = new byte[(int)(HEADER.length + THREAD.length + file.length())];
       try{
-        fis.read(buff, HEADER.length + STYLE.length, (int)(file.length()));
+        fis.read(buff, HEADER.length + THREAD.length, (int)(file.length()));
       }catch(IOException e){
         Server.error("Get", "could not read `" + file.getPath() + "`");
         return FAILURE;
       }
       System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
-      System.arraycopy(STYLE, 0, buff, HEADER.length, STYLE.length);
+      System.arraycopy(THREAD, 0, buff, HEADER.length, THREAD.length);
       return buff;
     }else{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
