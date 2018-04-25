@@ -73,7 +73,7 @@ public class Main{
           x = vers(args, x);
           break;
         default :
-          error("Main", "`" + args[x] + "`parameter not understood");
+          error("Main", "`" + args[x] + "`parameter not understood", true);
           break;
       }
     }
@@ -96,7 +96,7 @@ public class Main{
     try{
       port = Integer.parseInt(args[++ofst]);
     }catch(NumberFormatException e){
-      error("Main", "`" + args[ofst] + "` is not valid port");
+      error("Main", "`" + args[ofst] + "` is not valid port", true);
     }
     return ofst;
   }
@@ -173,7 +173,7 @@ public class Main{
     try{
       salt = Integer.parseInt(args[++ofst]);
     }catch(NumberFormatException e){
-      error("Main", "`" + args[ofst] + "` is not valid salt");
+      error("Main", "`" + args[ofst] + "` is not valid salt", true);
     }
     return ofst;
   }
@@ -196,13 +196,29 @@ public class Main{
   /**
    * error()
    *
-   * Display error message and stop program execution.
+   * Display error message.
    *
    * @param cls The identifier to be displayed.
    * @param msg The message to be displayed.
    **/
   public static void error(String cls, String msg){
     System.err.println("[ERR]::" + cls + " " + msg);
-    System.exit(0);
+    /* TODO: Log event to file. */
+  }
+
+  /**
+   * error()
+   *
+   * Display error message and stop program execution.
+   *
+   * @param cls The identifier to be displayed.
+   * @param msg The message to be displayed.
+   * @param exit True if the program should exit, otherwise false.
+   **/
+  public static void error(String cls, String msg, boolean exit){
+    error(cls, msg);
+    if(exit){
+      System.exit(0);
+    }
   }
 }
