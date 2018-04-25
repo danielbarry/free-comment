@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Remove previous file
+rm *.css
+rm *.html
+rm *.txt
+
 # Build
 ant
 
