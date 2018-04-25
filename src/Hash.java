@@ -12,6 +12,7 @@ public class Hash{
   private static final int CRYPTO_LENGTH = Config.instance.getInt("CRYPTO_LENGTH");
   private static final char[] CONSONANT_LIST = Config.instance.getString("CONSONANT_LIST").toCharArray();
   private static final char[] VOWEL_LIST = Config.instance.getString("VOWEL_LIST").toCharArray();
+  private static final String[] COLOUR_LIST = Config.instance.getString("COLOUR_LIST").split(",");
 
   /**
    * check()
