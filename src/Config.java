@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+/* TODO: Should iProps be favoured over eProps in loading? */
+
 /**
  * Config.java
  *
