@@ -102,4 +102,43 @@ public class Hash{
     }
     return r;
   }
+
+  /**
+   * intToSVG()
+   *
+   * Converts an integer to an SVG.
+   *
+   * @param i The integer to be converted.
+   * @return The converted integer.
+   **/
+  public static byte[] intToSVG(int i){
+    String pts =
+      (((i >>  0) & 0x7) << 3) + "," +
+      (((i >>  2) & 0x7) << 3) + " " +
+      (((i >>  4) & 0x7) << 3) + "," +
+      (((i >>  6) & 0x7) << 3) + " " +
+      (((i >>  8) & 0x7) << 3) + "," +
+      (((i >> 10) & 0x7) << 3) + " " +
+      (((i >> 12) & 0x7) << 3) + "," +
+      (((i >> 14) & 0x7) << 3) + " " +
+      (((i >> 16) & 0x7) << 3) + "," +
+      (((i >> 18) & 0x7) << 3) + " " +
+      (((i >> 20) & 0x7) << 3) + "," +
+      (((i >> 22) & 0x7) << 3) + " " +
+      (((i >> 24) & 0x7) << 3) + "," +
+      (((i >> 26) & 0x7) << 3);
+    String c = COLOUR_LIST[((i >> 28) & 0xF) % COLOUR_LIST.length];
+    return (
+      "HTTP/1.1 200 OK\r\n" +
+      "Content-Type: image/svg+xml\r\n\r\n" +
+      "<?xml version=\"1.0\"?>" +
+      "<svg width=\"64\" height=\"64\" xmlns=\"http://www.w3.org/2000/svg\">" +
+        "<polygon points=\"" +
+          pts +
+          "\" style=\"fill:#" +
+          c +
+          ";stroke-width:0;fill-rule:evenodd;\" />" +
+      "</svg>"
+    ).getBytes();
+  }
 }
