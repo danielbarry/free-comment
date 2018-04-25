@@ -67,6 +67,12 @@ public class Get implements Request{
       return FAILURE;
     }
     /* Check whether we have a special case */
+    if(file.getName().startsWith("alias")){
+      return Hash.intToSVG(
+        file.getName().substring("alias".length()).hashCode()
+      );
+    }
+    /* Check whether we have a special case */
     if(file.getName().equals("style.css")){
       byte[] buff = new byte[(int)(HEADER.length + CSS.length)];
       System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
