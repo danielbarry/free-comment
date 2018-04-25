@@ -84,6 +84,7 @@ public class Post implements Request{
       FileWriter fw = new FileWriter(file, true);
       fw.write(
         COMMENT
+          .replace("$i", Integer.toString(user))
           .replace("$n", Hash.intToWord(user, salt, 8))
           .replace("$d", sdf.format(new Date()))
           .replace("$c", cmnt)
