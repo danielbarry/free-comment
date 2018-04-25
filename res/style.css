@@ -1,4 +1,4 @@
-body, i, input, p, textarea{
+body, i, input, input:hover, p, p:hover, textarea, textarea:focus, textarea:hover{
   background: #FFF;
   border-radius: 4px;
   font-size: 18px;
@@ -9,7 +9,4 @@ input, p, textarea{
   box-sizing: border-box;
   width: 100%;
   padding: 8px;
-}
-input:hover, p:hover, textarea:focus, textarea:hover{
-  background: #FFF;
 }
