@@ -18,7 +18,7 @@ public class Post implements Request{
   private static final byte[] HEADER = Config.instance.getFile("HEADER");
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
   private static final String DATE_FORMAT = Config.instance.getString("DATE_FORMAT");
-  private static final byte[] COMMENT = Config.instance.getFile("COMMENT");
+  private static final String COMMENT = new String(Config.instance.getFile("COMMENT"));
 
   private static SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
   private static int salt;
@@ -83,7 +83,7 @@ public class Post implements Request{
     try{
       FileWriter fw = new FileWriter(file, true);
       fw.write(
-        (new String(COMMENT))
+        COMMENT
           .replace("$n", Hash.intToWord(user, salt, 8))
           .replace("$d", sdf.format(new Date()))
           .replace("$c", cmnt)
