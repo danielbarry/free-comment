@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Get implements Request{
   private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
-  private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
+  private static final byte[] HEADER = Config.instance.getFile("HEADER");
   private static final byte[] STYLE = Config.instance.getString("STYLE").getBytes();
   private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
   private static final String NEW_LINK = Config.instance.getString("NEW_LINK");

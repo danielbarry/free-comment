@@ -15,7 +15,7 @@ import java.util.Date;
 public class Post implements Request{
   private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
   private static final byte[] INDICATOR = Config.instance.getString("INDICATOR").getBytes();
-  private static final byte[] HEADER = Config.instance.getString("HEADER").getBytes();
+  private static final byte[] HEADER = Config.instance.getFile("HEADER");
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
   private static final String DATE_FORMAT = Config.instance.getString("DATE_FORMAT");
 
