@@ -15,10 +15,10 @@ public class Get implements Request{
   private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
   private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
   private static final byte[] HEADER = Config.instance.getFile("HEADER");
-  private static final byte[] STYLE = Config.instance.getString("STYLE").getBytes();
   private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
   private static final String NEW_LINK = Config.instance.getString("NEW_LINK");
   private static final byte[] THREAD = Config.instance.getFile("THREAD");
+  private static final byte[] CSS = Config.instance.getFile("CSS");
 
   private static String domain;
   private static int port;
@@ -62,6 +62,14 @@ public class Get implements Request{
       }
       /* If we got here we failed */
       return FAILURE;
+    }
+    /* Check whether we have a special case */
+    if(file.getName().equals("style.css")){
+      byte[] buff = new byte[(int)(HEADER.length + CSS.length)];
+      System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
+      System.arraycopy(CSS, 0, buff, HEADER.length, CSS.length);
+      /* Return CSS file */
+      return buff;
     }
     /* Check whether the file exists */
     if(file.exists() && file.isFile()){
