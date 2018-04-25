@@ -13,12 +13,13 @@ import java.io.IOException;
  **/
 public class Get implements Request{
   private static final int CMDS_MAX_LENGTH = Config.instance.getInt("CMDS_MAX_LENGTH");
-  private static final byte[] FAILURE = Config.instance.getString("FAILURE").getBytes();
   private static final byte[] HEADER = Config.instance.getFile("HEADER");
   private static final int MAX_SEARCH = Config.instance.getInt("MAX_SEARCH");
   private static final String NEW_LINK = Config.instance.getString("NEW_LINK");
   private static final byte[] THREAD = Config.instance.getFile("THREAD");
   private static final byte[] CSS = Config.instance.getFile("CSS");
+  private static final String ERROR = new String(HEADER) +
+    new String(Config.instance.getFile("ERROR"));
 
   private static String domain;
   private static int port;
@@ -64,7 +65,7 @@ public class Get implements Request{
         }
       }
       /* If we got here we failed */
-      return FAILURE;
+      return ERROR.replace("$f", "Unable to generate new thread").getBytes();
     }
     /* Check whether we have a special case */
     if(file.getName().startsWith("alias")){
@@ -87,21 +88,21 @@ public class Get implements Request{
         fis = new FileInputStream(file);
       }catch(FileNotFoundException e){
         Server.error("Get", "failure to find `" + file.getPath() + "`");
-        return FAILURE;
+        return ERROR.replace("$f", "Unable to access thread").getBytes();
       }
       byte[] buff = new byte[(int)(HEADER.length + THREAD.length + file.length())];
       try{
         fis.read(buff, HEADER.length + THREAD.length, (int)(file.length()));
       }catch(IOException e){
         Server.error("Get", "could not read `" + file.getPath() + "`");
-        return FAILURE;
+        return ERROR.replace("$f", "Unable to read thread").getBytes();
       }
       System.arraycopy(HEADER, 0, buff, 0, HEADER.length);
       System.arraycopy(THREAD, 0, buff, HEADER.length, THREAD.length);
       return buff;
     }else{
       Server.error("Get", "invalid file request `" + file.getPath() + "`");
-      return FAILURE;
+      return ERROR.replace("$f", "Unable to find thread").getBytes();
     }
   }
 
