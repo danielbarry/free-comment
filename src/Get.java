@@ -103,25 +103,6 @@ public class Get implements Request{
       Server.error("Post", "failed to create comments file `" + file.getPath() + "`");
       return false;
     }
-    FileOutputStream fos = null;
-    try{
-      fos = new FileOutputStream(file);
-    }catch(FileNotFoundException e){
-      Server.error("Post", "failed to open file `" + file.getPath() + "`");
-      return false;
-    }
-    try{
-      fos.write(COMMENT_DATA);
-    }catch(IOException e){
-      Server.error("Post", "failed to write file `" + file.getPath() + "`");
-      return false;
-    }
-    try{
-      fos.close();
-    }catch(IOException e){
-      Server.error("Post", "failed to close file `" + file.getPath() + "`");
-      return false;
-    }
     return true;
   }
 
