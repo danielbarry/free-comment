@@ -2,6 +2,7 @@ package barray.fc;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -190,6 +191,20 @@ public class Config{
       File file = null;
       /* Check first whether internal properties has value */
       if(file == null && iProps.getProperty(key) != null){
+        String fn = iProps.getProperty(key);
+        InputStream is = getClass().getResourceAsStream("/" + fn);
+        try{
+          if(is != null && !(new File(fn)).exists() && is.available() > 0){
+            FileOutputStream fos = new FileOutputStream(new File(fn));
+            byte[] buf = new byte[is.available()];
+            is.read(buf);
+            is.close();
+            fos.write(buf);
+            fos.close();
+          }
+        }catch(IOException e){
+          Main.error("Config", "Unable to load internal file " + key);
+        }
         file = new File(iProps.getProperty(key));
       }
       /* Check second whether external properties has value */
