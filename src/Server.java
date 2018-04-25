@@ -29,17 +29,17 @@ public class Server{
   public Server(int port, String path, String domain, int salt){
     this.path = new File(path);
     if(!validPort(port)){
-      Main.error("Server", "`" + port + "` invalid port");
+      error("Server", "`" + port + "` invalid port");
     }
     if(!validPath(this.path)){
-      Main.error("Server", "`" + path + "` invalid folder");
+      error("Server", "`" + path + "` invalid folder");
     }
     try{
       ss = new ServerSocket(port);
       ss.setReceiveBufferSize(CMDS_MAX_LENGTH);
       ss.setReuseAddress(true);
     }catch(IOException e){
-      Main.error("Server", "failed to bind to port `" + port + "`");
+      error("Server", "failed to bind to port `" + port + "`");
     }
     /* Statically set values */
     Connection.setPath(this.path);
