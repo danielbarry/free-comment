@@ -1,4 +1,7 @@
 *.class
 *.jar
 *.swp
+/*.css
+/*.html
+/*.txt
 dat/**
