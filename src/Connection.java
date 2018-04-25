@@ -82,7 +82,7 @@ public class Connection extends Thread{
         /* Work out if GET or POST */
         switch(cmds[0]){
           case "GET" :
-            req = new Get(path, buff);
+            req = new Get(path, buff, user);
             break;
           case "POST" :
             req = new Post(path, buff, user);

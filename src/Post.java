@@ -41,7 +41,7 @@ public class Post implements Request{
   public Post(File path, byte[] data, int user){
     this.user = user;
     /* Build get request to return file */
-    get = new Get(path, data);
+    get = new Get(path, data, user);
     /* Process header */
     String[] cmds = new String(data, 0, CMDS_MAX_LENGTH).split(" ");
     cmds[1] = cmds[1].replace("/", "");

@@ -23,6 +23,7 @@ public class Get implements Request{
   private static String domain;
   private static int port;
 
+  private int user;
   private File file;
 
   /**
@@ -33,8 +34,10 @@ public class Get implements Request{
    *
    * @param path The path of the web directory.
    * @param data The data to be analysed.
+   * @param user The IP address hash of the client.
    **/
-  public Get(File path, byte[] data){
+  public Get(File path, byte[] data, int user){
+    this.user = user;
     String[] cmds = new String(data, 0, CMDS_MAX_LENGTH).split(" ");
     cmds[1] = cmds[1].replace("/", "");
     cmds[1] = cmds[1].split("\\?")[0];
