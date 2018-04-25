@@ -120,6 +120,6 @@ public class Server{
    * @param msg The message to be displayed.
    **/
   public static void error(String cls, String msg){
-    System.err.println("[ERR]::" + cls + " " + msg);
+    Main.error(cls, msg);
   }
 }
