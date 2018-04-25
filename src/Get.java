@@ -42,6 +42,7 @@ public class Get implements Request{
   }
 
   public byte[] process(){
+    /* TODO: Should be performing admin checking here. */
     /* Check whether we have a special case */
     if(file.getName().equals("generate")){
       /* Keep checking until we find a unique name */
